@@ -1,5 +1,5 @@
 // Description: This file is used to load the environment variables from the .env file.
-require(dotenv).config();
+require('dotenv').config();
 
 // create database connection pool
 const Pool = require('pg').Pool;
@@ -10,3 +10,16 @@ const pool = new Pool({
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT
 });
+
+const getCustomer = (req, res) => {
+    pool.query('SELECT * FROM customer ORDER BY id ASC', (error, results) => {
+        if (error) {
+            throw error;
+        }
+        res.status(200).json(results.rows);
+    });
+};
+
+module.exports = {
+    getCustomer
+};

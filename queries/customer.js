@@ -1,6 +1,6 @@
 const pool = require('../db.js');
 
-
+// get all customers - query will need to be adjusted to include relevant details
 const getCustomers = (req, res) => {
     pool.query('SELECT * FROM customer ORDER BY id ASC', (error, results) => {
         if (error) {
@@ -10,8 +10,7 @@ const getCustomers = (req, res) => {
     });
 };
 
-
-
+// get customer by id - query will need to be adjusted to include relevant details
 const getCustomerById = (req, res) => {
     const id = parseInt(req.params.id);
 
@@ -35,6 +34,7 @@ const newCustomer = (req, res) => {
     });
 };
 
+// update a customer by id
 const updateCustomer = (req, res) => {
     const id = parseInt(req.params.id);
     const { first_name, last_name, email, password } = req.body;
@@ -47,6 +47,7 @@ const updateCustomer = (req, res) => {
     });
 };
 
+// delete a customer by id
 const deleteCustomer = (req, res) => {
     const id = parseInt(req.params.id);
 

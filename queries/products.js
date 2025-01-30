@@ -23,6 +23,7 @@ const getProductById = (req, res) => {
     });
 };
 
+// add new product - this will be used to add a new product to the database
 const addProduct = (req, res) => {
     const { name, description, price } = req.body;
 
@@ -34,6 +35,7 @@ const addProduct = (req, res) => {
     });
 };
 
+// update a product by id - this will be used to update a product in the database
 const updateProduct = (req, res) => {
     const id = parseInt(req.params.id);
     const { name, description, price } = req.body;
@@ -46,6 +48,7 @@ const updateProduct = (req, res) => {
     });
 };
 
+// delete a product by id - this will be used to delete a product from the database
 const deleteProduct = (req, res) => {
     const id = parseInt(req.params.id);
 

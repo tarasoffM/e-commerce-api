@@ -58,3 +58,11 @@ const deleteOrder = (req, res) => {
         res.status(200).send(`Order deleted with ID: ${id}`);
     });
 };
+
+module.exports = {
+    getOrders,
+    getOrderById,
+    addOrder,
+    updateOrder,
+    deleteOrder
+};

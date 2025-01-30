@@ -34,6 +34,7 @@ const addToCart = (req, res) => {
     });
 };
 
+// delete product from cart
 const deleteFromCart = (req, res) => {
     const id = parseInt(req.params.id);
 

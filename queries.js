@@ -1,4 +1,4 @@
-// Description: This file is used to load the environment variables from the .env file.
+// Load the environment variables from the .env file.
 require('dotenv').config();
 
 // create database connection pool
@@ -11,6 +11,7 @@ const pool = new Pool({
     port: process.env.DB_PORT
 });
 
+// add new customer **WILL NEED TO UPDATE THIS TO SECURE PASSWORDS**
 const newCustomer = (req, res) => {
     const { first_name, last_name, email, password } = req.body;
 
@@ -22,6 +23,7 @@ const newCustomer = (req, res) => {
     });
 };
 
+// get all customers - this will probably be changed to get a single customer - was used for testing
 const getCustomer = (req, res) => {
     pool.query('SELECT first_name, last_name, email FROM customer ORDER BY id ASC', (error, results) => {
         if (error) {
@@ -31,7 +33,18 @@ const getCustomer = (req, res) => {
     });
 };
 
+// get all products - this will be used to get all products from the database
+const getProducts = (req, res) => {
+    pool.query('SELECT * FROM products ORDER BY id ASC', (error, results) => {
+        if (error) {
+            throw error;
+        }
+        res.status(200).json(results.rows);
+    });
+}
+
 module.exports = {
     newCustomer,
-    getCustomer
+    getCustomer,
+    getProducts
 };

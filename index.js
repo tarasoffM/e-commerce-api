@@ -21,6 +21,10 @@ app.post('/customer', (req, res) => {
     db.newCustomer(req, res);
 });
 
+app.get('/products', (req, res) => {
+    db.getProducts(req, res);
+});
+
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 });

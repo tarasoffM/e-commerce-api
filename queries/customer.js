@@ -1,9 +1,4 @@
-const pool = require('./db.js');
-
-// basic welcome message for the root route - testing purposes
-const getHome = (req, res) => {
-    res.json({ info: 'Welcome to our store!' });
-};
+const pool = require('../db.js');
 
 // add new customer **WILL NEED TO UPDATE THIS TO SECURE PASSWORDS**
 const newCustomer = (req, res) => {
@@ -30,6 +25,5 @@ const getCustomerById = (req, res) => {
 
 module.exports = {
     newCustomer,
-    getHome,
     getCustomerById
 };

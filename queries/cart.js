@@ -1,4 +1,4 @@
-const pool = require('./db.js');
+const pool = require('../db.js');
 
 // add product to cart
 const addToCart = (req, res) => {

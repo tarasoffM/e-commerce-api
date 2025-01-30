@@ -1,5 +1,27 @@
 const pool = require('../db.js');
 
+// gets all customer carts - query will need to be adjusted to include product details
+const getCarts = (req, res) => {
+    pool.query('SELECT * FROM cart ORDER BY id ASC', (error, results) => {
+        if (error) {
+            throw error;
+        }
+        res.status(200).json(results.rows);
+    });
+};
+
+// gets cart by customer id - query will need to be adjusted to include product details
+const getCart = (req, res) => {
+    const id = parseInt(req.params.id);
+
+    pool.query('SELECT * FROM cart WHERE customer_id = $1', [id], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        res.status(200).json(results.rows);
+    });
+};
+
 // add product to cart
 const addToCart = (req, res) => {
     const { product_id, quantity, customer_id } = req.body;
@@ -12,18 +34,20 @@ const addToCart = (req, res) => {
     });
 };
 
-const getCart = (req, res) => {
+const deleteFromCart = (req, res) => {
     const id = parseInt(req.params.id);
 
-    pool.query('SELECT * FROM cart WHERE customer_id = $1', [id], (error, results) => {
+    pool.query('DELETE FROM cart WHERE id = $1', [id], (error, results) => {
         if (error) {
             throw error;
         }
-        res.status(200).json(results.rows);
+        res.status(200).send(`Product deleted from cart with ID: ${id}`);
     });
 };
 
 module.exports = {
+    getCarts,
+    getCart,
     addToCart,
-    getCart
+    deleteFromCart
 };

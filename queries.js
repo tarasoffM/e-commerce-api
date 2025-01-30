@@ -11,6 +11,11 @@ const pool = new Pool({
     port: process.env.DB_PORT
 });
 
+// basic welcome message for the root route - testing purposes
+const getHome = (req, res) => {
+    res.json({ info: 'Welcome to our store!' });
+};
+
 // add new customer **WILL NEED TO UPDATE THIS TO SECURE PASSWORDS**
 const newCustomer = (req, res) => {
     const { first_name, last_name, email, password } = req.body;
@@ -23,9 +28,10 @@ const newCustomer = (req, res) => {
     });
 };
 
-// get all customers - this will probably be changed to get a single customer - was used for testing
-const getCustomer = (req, res) => {
-    pool.query('SELECT first_name, last_name, email FROM customer ORDER BY id ASC', (error, results) => {
+const getCustomerById = (req, res) => {
+    const id = parseInt(req.params.id);
+
+    pool.query('SELECT * FROM customer WHERE id = $1', [id], (error, results) => {
         if (error) {
             throw error;
         }
@@ -40,11 +46,15 @@ const getProducts = (req, res) => {
             throw error;
         }
         res.status(200).json(results.rows);
-    });
+ 
+   });
 }
+
+
 
 module.exports = {
     newCustomer,
-    getCustomer,
+    getHome,
+    getCustomerById,
     getProducts
 };

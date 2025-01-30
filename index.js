@@ -14,11 +14,15 @@ app.use(
 );
 
 app.get('/', (req, res) => {
-    db.getCustomer(req, res);
+    db.getHome(req, res);
 });
 
 app.post('/customer', (req, res) => {
     db.newCustomer(req, res);
+});
+
+app.get('/customer/:id', (req, res) => {
+    db.getCustomerById(req, res);
 });
 
 app.get('/products', (req, res) => {

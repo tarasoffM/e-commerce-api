@@ -29,6 +29,14 @@ app.get('/products', (req, res) => {
     db.getProducts(req, res);
 });
 
+app.post('/cart', (req, res) => {
+    db.addToCart(req, res);
+});
+
+app.get('/cart/:id', (req, res) => {
+    db.getCart(req, res);
+});
+
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 });

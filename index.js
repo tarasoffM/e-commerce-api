@@ -3,7 +3,16 @@ const bodyParser = require('body-parser');
 const app = express();
 
 // require routing handlers
-const db = require('./queries');
+const customerQueries = require('./queries-customer');
+const productQueries = require('./queries-products');
+const cartQueries = require('./queries-cart');
+const authQueries = require('./queries-auth');
+db = {
+    ...customerQueries,
+    ...productQueries,
+    ...cartQueries,
+    ...authQueries
+};
 
 // initialize body-parser to parse incoming parameters requests to req.body
 app.use(bodyParser.json());

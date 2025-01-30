@@ -6,7 +6,7 @@ const app = express();
 const customerQueries = require('./queries/customer');
 const productQueries = require('./queries/products');
 const cartQueries = require('./queries/cart');
-const authQueries = require('./queries/auth');
+const authQueries = require('./auth');
 const orderQueries = require('./queries/order');
 db = {
     ...customerQueries,
@@ -28,10 +28,13 @@ app.use(
 // basic welcome message for the root route - testing purposes
 app.get('/', (req, res) => {res.json({ info: 'Welcome to our store!' });});
 
+// authentication routes
+app.post('/register', (req, res) => {db.regCustomer(req, res);});
+app.post('/login', (req, res) => {db.loginCustomer(req, res);});
+
 // routes for customer endpoints
 app.get('/customer', (req, res) => {db.getCustomers(req, res);});
 app.get('/customer/:id', (req, res) => {db.getCustomerById(req, res);});
-app.post('/customer', (req, res) => {db.newCustomer(req, res);});
 app.put('/customer/:id', (req, res) => {db.updateCustomer(req, res);});
 app.delete('/customer/:id', (req, res) => {db.deleteCustomer(req, res);});
 

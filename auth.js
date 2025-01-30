@@ -5,10 +5,12 @@ const regCustomer = async (req, res) => {
     try {
         const { first_name, last_name, email, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
-        pool.query('INSERT INTO customer (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING id', [first_name, last_name, email, hashedPassword], (error, results) => {
-        res.status(201).send(`User added with ID: ${results.rows[0].id}`)})
+        const results = await pool.query('INSERT INTO customer (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING id', [first_name, last_name, email, hashedPassword]);
+        res.status(201).send(`Customer added with ID: ${results.rows[0].id}`);
+       
     } catch(err) {
-        res.status(500).send(err);
+        console.log('Error adding new customer:', err);
+        res.status(500).send('An error occurred while adding a new customer');
     }
 };
 
@@ -25,5 +27,6 @@ const loginCustomer = async (req, res) => {
 };
 
 module.exports = {
-    regCustomer
+    regCustomer,
+    loginCustomer
 };

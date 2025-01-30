@@ -16,6 +16,11 @@ db = {
     ...orderQueries
 };
 
+// require passport and initialize it
+const passport = require('passport');
+const initializePassprot = require('./passport-config');
+//initializePassprot();
+
 // initialize body-parser to parse incoming parameters requests to req.body
 app.use(bodyParser.json());
 app.use(

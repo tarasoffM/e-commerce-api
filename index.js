@@ -1,9 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+
+// require routing handlers
 const db = require('./queries');
 
-
+// initialize body-parser to parse incoming parameters requests to req.body
 app.use(bodyParser.json());
 app.use(
     bodyParser.urlencoded({
@@ -13,6 +15,10 @@ app.use(
 
 app.get('/', (req, res) => {
     db.getCustomer(req, res);
+});
+
+app.post('/customer', (req, res) => {
+    db.newCustomer(req, res);
 });
 
 app.listen(3000, () => {

@@ -11,8 +11,19 @@ const pool = new Pool({
     port: process.env.DB_PORT
 });
 
+const newCustomer = (req, res) => {
+    const { first_name, last_name, email, password } = req.body;
+
+    pool.query('INSERT INTO customer (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING id', [first_name, last_name, email, password], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        res.status(201).send(`Customer added with ID: ${results.rows[0].id}`);
+    });
+};
+
 const getCustomer = (req, res) => {
-    pool.query('SELECT * FROM customer ORDER BY id ASC', (error, results) => {
+    pool.query('SELECT first_name, last_name, email FROM customer ORDER BY id ASC', (error, results) => {
         if (error) {
             throw error;
         }
@@ -21,5 +32,6 @@ const getCustomer = (req, res) => {
 };
 
 module.exports = {
+    newCustomer,
     getCustomer
 };

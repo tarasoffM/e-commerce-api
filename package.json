@@ -1,5 +1,5 @@
 {
-  "name": "api-postgres",
+  "name": "e-commerce-api",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Matt Tarasoff",
   "license": "ISC",
   "description": "",
   "dependencies": {

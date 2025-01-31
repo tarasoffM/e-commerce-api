@@ -5,8 +5,10 @@ const bodyParser = require('body-parser');
 const app = express();
 const passport = require('passport');
 
+// set the view engine to ejs
+app.set('view-engine', 'ejs');
 
-// initialize passport
+// configure passport
 const initializePassport = require('./passport-config');
 initializePassport(passport);
 
@@ -32,6 +34,7 @@ db = {
     ...orderQueries
 };
 
+// initialize session and passport
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -45,20 +48,31 @@ app.use(passport.session());
 app.get('/', (req, res) => {
     res.render('index.ejs');
 });
-app.get('/register', (req, res) => {
+app.get('/profile', checkAuthenticated, (req, res) => {
+    res.render('profile.ejs', { first_name: req.user.first_name, last_name: req.user.last_name });
+});
+app.get('/register', checkNotAuthenticated, (req, res) => {
     res.render('register.ejs');
 });
-app.get('/login', (req, res) => {
+app.get('/login', checkNotAuthenticated, (req, res) => {
     res.render('login.ejs');
 });
 
 
 // authentication routes
-app.post('/register', (req, res) => {db.regCustomer(req, res);});
-app.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
+app.post('/register', checkNotAuthenticated, (req, res) => {db.regCustomer(req, res);});
+app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
+    successRedirect: '/profile',
     failureRedirect: '/login',
 }));
+app.get('/logout', checkAuthenticated, (req, res) => {
+    req.logOut((err) => {
+        if (err) {
+            return res.redirect('/profile');
+        }
+        res.redirect('/login');
+    });    
+});
 
 // routes for customer endpoints
 app.get('/customer', (req, res) => {db.getCustomers(req, res);});
@@ -71,7 +85,7 @@ app.get('/products', (req, res) => {db.getProducts(req, res);});
 app.get('/products/:id', (req, res) => {db.getProductById(req, res);});
 
 // routes for cart endpoints
-app.get('/cart/:id', (req, res) => {db.getCart(req, res);});
+app.get('/cart/:id', (req, res) => {db.getCartById(req, res);});
 app.post('/cart', (req, res) => {db.addToCart(req, res);});
 app.delete('/cart/:id', (req, res) => {db.deleteFromCart(req, res);});
 
@@ -80,7 +94,28 @@ app.get('/order', (req, res) => {db.getOrders(req, res);});
 app.get('/order/:id', (req, res) => {db.getOrderById(req, res);});
 app.post('/order', (req, res) => {db.addOrder(req, res);});
 
-// routes for authentication endpoints
+// routes for checkout
+app.get('/checkout', (req, res) => {
+
+    res.render('checkout.ejs');
+});
+app.post('/checkout', (req, res) => {});
+
+
+function checkAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/login');
+}
+
+function checkNotAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return res.redirect('/profile');
+    }
+    next();
+}
+
 
 // initialize the server on port 3000
 app.listen(3000, () => {

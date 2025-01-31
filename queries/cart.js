@@ -12,7 +12,7 @@ const getCarts = async (req, res) => {
 };
 
 // gets cart by customer id - query will need to be adjusted to include product details
-const getCart = async (req, res) => {
+const getCartById = async (req, res) => {
     const id = parseInt(req.params.id);
 
     try {
@@ -52,7 +52,7 @@ const deleteFromCart = async (req, res) => {
 
 module.exports = {
     getCarts,
-    getCart,
+    getCartById,
     addToCart,
     deleteFromCart
 };

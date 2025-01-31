@@ -7,22 +7,19 @@ const initialize = (passport) => {
         try {
             const result = await pool.query('SELECT * FROM customer WHERE email = $1', [email]);
             const user = result.rows[0];
-            console.log(user);
             if (!user) {
-                console.log('1');
+                console.log('User not found');
                 return done(null, false, { message: 'No user with that email' });
             }
-            console.log(password);
-            console.log(user.password);
             const isMatch = await bcrypt.compare(password, user.password);
             console.log('Password comparison:', isMatch);
 
 
             if (isMatch) {
-                console.log('2');
+                console.log('Success');
                 return done(null, user);
             } else {
-                console.log('3');
+                console.log('Password incorrect');
                 return done(null, false, { message: 'Password incorrect' });
             }
         } catch(err) {

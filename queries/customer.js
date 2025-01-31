@@ -1,4 +1,5 @@
 const pool = require('../db.js');
+const bcrypt = require('bcrypt');
 
 // get all customers - query will need to be adjusted to include relevant details
 const getCustomers = async (req, res) => {
@@ -41,9 +42,10 @@ const newCustomer = async (req, res) => {
 const updateCustomer = async (req, res) => {
     const id = parseInt(req.params.id);
     const { first_name, last_name, email, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     try {
-        await pool.query('UPDATE customer SET first_name = $1, last_name = $2, email = $3, password = $4 WHERE id = $5', [first_name, last_name, email, password, id]);
+        await pool.query('UPDATE customer SET first_name = $1, last_name = $2, email = $3, password = $4 WHERE id = $5', [first_name, last_name, email, hashedPassword, id]);
         res.status(200).send(`Customer modified with ID: ${id}`);
     } catch (error) {
         console.error(`Error updating customer with ID ${id}:`, error);

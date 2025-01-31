@@ -24,8 +24,9 @@ app.use(
 const customerQueries = require('./queries/customer');
 const productQueries = require('./queries/products');
 const cartQueries = require('./queries/cart');
-const authQueries = require('./auth');
+const authQueries = require('./queries/auth');
 const orderQueries = require('./queries/order');
+const { get } = require('http');
 db = {
     ...customerQueries,
     ...productQueries,
@@ -95,9 +96,10 @@ app.get('/order/:id', (req, res) => {db.getOrderById(req, res);});
 app.post('/order', (req, res) => {db.addOrder(req, res);});
 
 // routes for checkout
-app.get('/checkout', (req, res) => {
-
-    res.render('checkout.ejs');
+app.get('/checkout', async (req, res) => {
+    cart = await db.getCartById(req, res);
+    console.log(cart);
+    res.render('checkout.ejs', {cart: cart});
 });
 app.post('/checkout', (req, res) => {});
 

@@ -13,11 +13,19 @@ const getCarts = async (req, res) => {
 
 // gets cart by customer id - query will need to be adjusted to include product details
 const getCartById = async (req, res) => {
-    const id = parseInt(req.params.id);
-
+    const id = parseInt(req.user.id);
+    const query = `
+        SELECT c.id AS customer, name, description, quantity, price
+        FROM cart crt
+        JOIN customer c
+        ON c.id = crt.customer_id
+        JOIN products p
+        ON p.id = crt.product_id
+        WHERE c.id = $1
+    `;
     try {
-        const results = await pool.query('SELECT * FROM cart WHERE customer_id = $1', [id]);
-        res.status(200).json(results.rows);
+        const results = await pool.query(query, [id]);
+        return results.rows;
     } catch (error) {
         console.error(`Error getting cart for customer ID ${id}:`, error);
         res.status(500).send('An error occurred while retrieving the cart');

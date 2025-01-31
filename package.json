@@ -9,10 +9,11 @@
   "keywords": [],
   "author": "Matt Tarasoff",
   "license": "ISC",
-  "description": "",
+  "description": "This is a simple e-commerce API built with Node.js, Express, and PostgreSQL.",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
     "express": "^4.21.2",
     "express-flash": "^0.0.2",
     "express-session": "^1.18.1",

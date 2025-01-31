@@ -1,6 +1,22 @@
+require('dotenv').config();
 const express = require('express');
+const session = require('express-session');
 const bodyParser = require('body-parser');
 const app = express();
+const passport = require('passport');
+
+
+// initialize passport
+const initializePassport = require('./passport-config');
+initializePassport(passport);
+
+// initialize body-parser to parse incoming parameters requests to req.body
+app.use(bodyParser.json());
+app.use(
+    bodyParser.urlencoded({
+        extended: true,
+    })
+);
 
 // require routing handlers
 const customerQueries = require('./queries/customer');
@@ -16,26 +32,33 @@ db = {
     ...orderQueries
 };
 
-// require passport and initialize it
-const passport = require('passport');
-const initializePassprot = require('./passport-config');
-//initializePassprot();
-
-// initialize body-parser to parse incoming parameters requests to req.body
-app.use(bodyParser.json());
-app.use(
-    bodyParser.urlencoded({
-        extended: true,
-    })
-);
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 
-// basic welcome message for the root route - testing purposes
-app.get('/', (req, res) => {res.json({ info: 'Welcome to our store!' });});
+// ejs template engine
+app.get('/', (req, res) => {
+    res.render('index.ejs');
+});
+app.get('/register', (req, res) => {
+    res.render('register.ejs');
+});
+app.get('/login', (req, res) => {
+    res.render('login.ejs');
+});
+
 
 // authentication routes
 app.post('/register', (req, res) => {db.regCustomer(req, res);});
-app.post('/login', (req, res) => {db.loginCustomer(req, res);});
+app.post('/login', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+}));
 
 // routes for customer endpoints
 app.get('/customer', (req, res) => {db.getCustomers(req, res);});

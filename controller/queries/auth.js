@@ -1,4 +1,4 @@
-const pool = require('../db.js');
+const pool = require('../../model/db.js');
 const bcrypt = require('bcrypt');
 
 const regCustomer = async (req, res) => {

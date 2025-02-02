@@ -1,4 +1,4 @@
-const pool = require('../db.js');
+const pool = require('../../model/db.js');
 
 // gets all customer carts - query will need to be adjusted to include product details
 const getCarts = async (req, res) => {

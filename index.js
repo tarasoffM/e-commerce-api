@@ -21,11 +21,11 @@ app.use(
 );
 
 // require routing handlers
-const customerQueries = require('./queries/customer');
-const productQueries = require('./queries/products');
-const cartQueries = require('./queries/cart');
-const authQueries = require('./queries/auth');
-const orderQueries = require('./queries/order');
+const customerQueries = require('./controller/queries/customer');
+const productQueries = require('./controller/queries/products');
+const cartQueries = require('./controller/queries/cart');
+const authQueries = require('./controller/queries/auth');
+const orderQueries = require('./controller/queries/order');
 const { get } = require('http');
 db = {
     ...customerQueries,

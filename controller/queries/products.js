@@ -1,4 +1,4 @@
-const pool = require('../db.js');
+const pool = require('../../model/db.js');
 
 // get all products - this will be used to get all products from the database
 const getProducts = async (req, res) => {

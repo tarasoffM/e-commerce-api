@@ -1,4 +1,4 @@
-const pool = require('../../model/db.js');
+const pool = require('../../models/db.js');
 
 // get all orders - this query will need to be adjusted to include relevant details
 const getOrders = async (req, res) => {

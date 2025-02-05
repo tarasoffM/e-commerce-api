@@ -18,6 +18,7 @@ const getProductById = async (req, res) => {
 
     try {
         const results = await pool.query('SELECT * FROM products WHERE id = $1', [id]);
+        console.log(results.rows);
         res.status(200).json(results.rows);
     } catch (error) {
         console.error(`Error getting product with ID ${id}:`, error);

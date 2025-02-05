@@ -2,10 +2,12 @@ import { React, useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import getStoreItems from './services/api';
+import { getStoreItems } from './services/api';
+
 
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Product from './pages/Product';
 
 const URL = 'http://localhost:3000';
 
@@ -59,7 +61,8 @@ function App() {
         <section className="App-body">
         <Routes>
           <Route exact path="/" element={< Home items={storeItems}/>} />
-          <Route path="/login" element={< Login login={login} />} />          
+          <Route path="/login" element={< Login login={login} />} />
+          <Route path="/product/:id" element={< Product />} />          
         </Routes>
         </section>
         <footer>

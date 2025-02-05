@@ -1,9 +1,16 @@
 import React from 'react';
 import Card from '../components/Card';
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
 
-const Home = ({ items }) => {
+const Home = ({ items, handleClick }) => {
+    const navigate = useNavigate();
+
+    const handleCardClick = (id) => {
+        navigate(`/product/${id}`);
+    };
+
     return (
         <div className="store">
         {items.map(
@@ -12,7 +19,8 @@ const Home = ({ items }) => {
                 name={item.name}
                 description={item.description}
                 price={item.price}
-                image={item.image} 
+                image={item.image}
+                handleClick={() => handleCardClick(item.id)} 
                 />
             )
         )}

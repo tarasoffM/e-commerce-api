@@ -4,9 +4,16 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const app = express();
 const passport = require('passport');
+const cors = require('cors');
 
 // set the view engine to ejs
 app.set('view-engine', 'ejs');
+
+// Enable CORS
+app.use(cors({ 
+    origin: 'http://localhost:3001', 
+    credentials: true 
+}));
 
 // configure passport
 const initializePassport = require('./passport-config');
@@ -21,11 +28,11 @@ app.use(
 );
 
 // require routing handlers
-const customerQueries = require('./controller/queries/customer');
-const productQueries = require('./controller/queries/products');
-const cartQueries = require('./controller/queries/cart');
-const authQueries = require('./controller/queries/auth');
-const orderQueries = require('./controller/queries/order');
+const customerQueries = require('./controllers/queries/customer');
+const productQueries = require('./controllers/queries/products');
+const cartQueries = require('./controllers/queries/cart');
+const authQueries = require('./controllers/queries/auth');
+const orderQueries = require('./controllers/queries/order');
 const { get } = require('http');
 db = {
     ...customerQueries,
@@ -39,7 +46,12 @@ db = {
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+    }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -55,17 +67,17 @@ app.get('/profile', checkAuthenticated, (req, res) => {
 app.get('/register', checkNotAuthenticated, (req, res) => {
     res.render('register.ejs');
 });
-app.get('/login', checkNotAuthenticated, (req, res) => {
-    res.render('login.ejs');
-});
+
 
 
 // authentication routes
 app.post('/register', checkNotAuthenticated, (req, res) => {db.regCustomer(req, res);});
-app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-    successRedirect: '/profile',
-    failureRedirect: '/login',
-}));
+
+app.post('/login', checkNotAuthenticated, passport.authenticate('local'), (req, res) => {
+    console.log(req.body);
+    return res.status(200).send({ message: 'Login successful' });
+});
+
 app.get('/logout', checkAuthenticated, (req, res) => {
     req.logOut((err) => {
         if (err) {
@@ -111,10 +123,9 @@ function checkAuthenticated(req, res, next) {
     res.redirect('/login');
 }
 
+
+// check logic needs to be updated
 function checkNotAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return res.redirect('/profile');
-    }
     next();
 }
 

@@ -61,7 +61,9 @@ function App() {
           <Route exact path="/" element={< Home items={storeItems}/>} />
           <Route path="/login" element={< Login login={login} />} />          
         </Routes>
-        </section> 
+        </section>
+        <footer>
+        </footer> 
       </div>
     </Router>
   );

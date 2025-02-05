@@ -1,31 +1,92 @@
 :root {
     --primary: #1e1e2f;
     --secondary: #2a2a3d;
-    --light: #ffffff;
+    --light: #f3ecec;
     --light-alt: #e2dcdc;
     --dark: #000000;
     --dark-alt: #1e1e2f;
-}
-
-* {
+    --shadows: rgb(177, 177, 177);
+  }
+  
+  * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: 'Fira Sans', sans-serif;
-}
-
-header {
-    height: 8rem;
+  }
+  
+  html, body, .App {
+    height: 100%;
+    margin: 0;
+    background-color: var(--light);
+  }
+  
+  .App {
+    display: flex;
+    flex-direction: column;
+    
+  }
+  
+  header {
     background-color: var(--primary);
-
-}
-
-section {
-    padding: 2rem;
-    margin: 2rem auto;
+    color: var(--light);
+    padding: 1rem;
+    position: fixed;
+    height: 8rem;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+  
+  .App-body {
+    position: fixed;
+    top: 8rem; /* Adjust based on header height */
+    bottom: 4rem; /* Adjust based on footer height */
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+    padding: 3rem;
     width: 80%;
-    border: var(--light-alt) 1px solid;
-    border-radius: 0.5rem;
-    box-shadow: 0 0 5px var(--light-alt);
-}
+    max-width: 1200px;
+    margin: 5rem auto;
+    border: 0.1rem solid var(--light-alt);
+    box-shadow: inset 0 0 10px var(--shadows);
+    background-color: var(--light);
+  }
+  
+  footer {
+    background-color: var(--primary);
+    color: var(--light);
+    padding: 1rem;
+    position: fixed;
+    height: 4rem;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+  
+  .headerContainer, .footerContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 
+  /* Scrollbar styling for webkit browsers */
+  .App-body::-webkit-scrollbar {
+    width: 0.5rem; /* Width of the scrollbar */
+
+  }
+  
+  .App-body::-webkit-scrollbar-thumb {
+    background-color: var(--light); /* Color of the scrollbar thumb */
+    border-radius: 6px; /* Roundness of the scrollbar thumb */
+    cursor: pointer;
+  }
+  
+  .App-body::-webkit-scrollbar-track {
+    background-color: var(--light-alt); /* Color of the scrollbar track */
+    visibility: hidden;
+  }
+  
+  .error {
+    color: red;
+  }

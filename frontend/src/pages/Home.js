@@ -1,9 +1,21 @@
 import React from 'react';
+import Card from '../components/Card';
+import './Home.css';
 
-const Home = () => {
+
+const Home = ({ items }) => {
     return (
-        <div>
-        <h1>Home Page</h1>
+        <div className="store">
+        {items.map(
+            (item) => (
+                <Card key={item.id} 
+                name={item.name}
+                description={item.description}
+                price={item.price}
+                image={item.image} 
+                />
+            )
+        )}
         </div>
     );
     };

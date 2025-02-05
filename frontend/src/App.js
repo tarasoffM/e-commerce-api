@@ -1,7 +1,9 @@
-import React from 'react';
-//import './App.css';
+import { React, useState, useEffect } from 'react';
+import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import getStoreItems from './services/api';
+
 import Home from './pages/Home';
 import Login from './pages/Login';
 
@@ -9,7 +11,9 @@ const URL = 'http://localhost:3000';
 
 
 function App() {
-  
+  const [storeItems, setStoreItems] = useState([]);
+  const [error, setError] = useState(null);
+
   const login = async (email, password) => {
       
     const response = await fetch(`${URL}/login`, {
@@ -29,6 +33,21 @@ function App() {
     }
   };
 
+
+  useEffect(() => {
+
+    const fetchItems = async () => {
+      try {
+        const items = await getStoreItems();
+        setStoreItems(items);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    fetchItems();
+  }, []);
+
   return (
     <Router>
       <div className="App">
@@ -37,10 +56,12 @@ function App() {
 
           </div>
         </header>
+        <section className="App-body">
         <Routes>
-          <Route exact path="/" element={< Home />} />
+          <Route exact path="/" element={< Home items={storeItems}/>} />
           <Route path="/login" element={< Login login={login} />} />          
-        </Routes> 
+        </Routes>
+        </section> 
       </div>
     </Router>
   );

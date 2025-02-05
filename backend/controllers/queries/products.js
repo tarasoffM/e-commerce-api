@@ -4,6 +4,7 @@ const pool = require('../../models/db.js');
 const getProducts = async (req, res) => {
     try {
         const results = await pool.query('SELECT * FROM products ORDER BY id ASC');
+        console.log(results.rows);
         res.status(200).json(results.rows);
     } catch (error) {
         console.error('Error getting products:', error);

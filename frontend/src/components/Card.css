@@ -1,0 +1,21 @@
+* {
+    font-family: 'Rockwell', sans-serif;
+}
+
+.card {
+    display: flex;    
+    flex-direction: column;
+    background-color: var(--light-alt);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1rem;
+    transition: box-shadow 0.3s ease-in-out;
+    max-width: 20rem;
+    min-width: 10rem;
+    cursor: pointer;
+    
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px var(--dark);
+}

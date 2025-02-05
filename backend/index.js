@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const passport = require('passport');
 const cors = require('cors');
+const path = require('path');
 
 // set the view engine to ejs
 app.set('view-engine', 'ejs');
@@ -12,6 +13,7 @@ app.set('view-engine', 'ejs');
 // Enable CORS
 app.use(cors({ 
     origin: 'http://localhost:3001', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true 
 }));
 
@@ -56,6 +58,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Serve static files from the "public" directory
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // ejs template engine
 app.get('/', (req, res) => {

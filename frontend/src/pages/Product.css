@@ -1,0 +1,21 @@
+.product {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Ensure the container takes the full height */
+  }
+  
+  .product img {
+    flex: 0 0 50%; /* Occupy the top 50% of the container */
+    height: 50%; /* Ensure the image takes the full width */
+    object-fit: cover;
+    transition: transform 2s;
+  }
+  
+  .product-content {
+    flex: 1; /* Occupy the remaining space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    padding: 1rem; /* Add some padding */
+  }

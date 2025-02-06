@@ -1,5 +1,7 @@
 * {
     font-family: 'Rockwell', sans-serif;
+    -webkit-font-smoothing: antialiased; /* For WebKit-based browsers */
+    -moz-osx-font-smoothing: grayscale; /* For Firefox on macOS */
 }
 
 .card {
@@ -9,7 +11,7 @@
     border-radius: 0.5rem;
     padding: 1rem;
     margin: 1rem;
-    transition: box-shadow 0.3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out, background-color 0.4s ease-in-out, color 0.4s ease-in-out;
     max-width: 20rem;
     min-width: 10rem;
     cursor: pointer;
@@ -18,5 +20,7 @@
 }
 
 .card:hover {
-    box-shadow: 0 4px 8px var(--dark);
+    box-shadow: 5px 5px 10px var(--secondary);
+    background-color: var(--secondary);
+    color: var(--shadows);
 }

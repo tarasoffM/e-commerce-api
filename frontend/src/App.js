@@ -1,7 +1,6 @@
-import { React, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { getStoreItems } from './services/api';
 
 
@@ -35,7 +34,7 @@ function App() {
     }
   };
 
-
+  // fetch store items
   useEffect(() => {
 
     const fetchItems = async () => {
@@ -49,6 +48,7 @@ function App() {
 
     fetchItems();
   }, []);
+
 
   return (
     <Router>

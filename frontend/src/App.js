@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { getStoreItems } from './services/api';
+import { getStoreItems, login, register } from './services/api';
 
 import Home from './pages/Home';
 import Login from './components/Login';
+import Register from './components/Register';
 import Product from './pages/Product';
 import Modal from './components/Modal';
 
@@ -14,24 +15,7 @@ function App() {
     const [storeItems, setStoreItems] = useState([]);
     const [error, setError] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const login = async (email, password) => {
-        const response = await fetch(`${URL}/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-            },
-            body: JSON.stringify({ email, password }),
-            credentials: 'include',
-        });
-        if (response.ok) {
-            const data = await response.json();
-            alert(`Message: ${data.message}`);
-        } else {
-            throw new Error('Login failed');
-        }
-    };
+    const [isRegister, setIsRegister] = useState(false);
 
     // fetch store items
     useEffect(() => {
@@ -67,7 +51,11 @@ function App() {
                     {/* Add your footer content here */}
                 </footer>
                 <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen()}>
-                    <Login />
+                    {isRegister ? (
+                        <Register register={register} toggleRegister={() => setIsRegister(false)} />    
+                    ) : (
+                        <Login login={login} toggleRegister={() => setIsRegister(true)} />
+                    )}
                 </Modal>
                 
             </div>

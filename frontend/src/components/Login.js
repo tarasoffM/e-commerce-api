@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Login = ({ login, toggleRegister, setIsLoggedIn, setIsModalOpen }) => {
+const Login = ({ login, toggleRegister, setIsLoggedIn, setIsModalOpen, setCartItemTotal, cartItems }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -11,7 +11,7 @@ const Login = ({ login, toggleRegister, setIsLoggedIn, setIsModalOpen }) => {
             setIsLoggedIn(result.success);
             if (result.success) {
                 setIsModalOpen(false);
-                //navigate('/profile'); // Redirect to profile page on successful login
+                
             } else {
                 alert(result.message); // Display the error message if login failed
             }

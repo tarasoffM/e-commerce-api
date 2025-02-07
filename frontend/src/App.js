@@ -57,10 +57,14 @@ function App() {
                 setIsLoggedIn(authResult.success);
 
                 if (authResult.success) {
-                    const cartItems = await getCart();
-                    setCart(cartItems);
-                    setCartItemTotal(cartItems.length);
+                    const result = await getCart();
+                    setCart(result);
+                    setCartItemTotal(result.length);
+                } else {
+                    setCart([]);
+                    setCartItemTotal(0);
                 }
+                
 
             } catch (error) {
                 setError(error.message);
@@ -68,7 +72,7 @@ function App() {
         };
     
         checkAuthAndFetchCart();
-    }, []);
+    }, [isLoggedIn]);
 
     return (
         <Router>
@@ -82,10 +86,8 @@ function App() {
                     {error && <div className="error">{error}</div>}
                     <Routes>
                         <Route exact path="/" element={<Home items={storeItems} />} />
-                        <Route path="/login" element={<Login login={(email, password) => {
-                            login(email, password);
-                            setIsLoggedIn(true);
-                        }} />} />
+
+
                         <Route path="/product/:id" element={<Product addItemToCart={addToCart} />} />
                         <Route path="/cart" element={<Cart cart={cart}/>} />
                     </Routes>

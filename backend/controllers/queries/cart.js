@@ -13,7 +13,12 @@ const getCarts = async (req, res) => {
 
 // gets cart by customer id - query will need to be adjusted to include product details
 const getCart = async (req, res) => {
-    const id = (parseInt(req.user.id) ? parseInt(req.user.id) : NULL);
+    // Check if req.user and req.user.id are present
+    if (!req.user || !req.user.id) {
+        return res.status(401).send('User not authenticated');
+    }
+
+    const id = parseInt(req.user.id);
     const query = `
         SELECT c.id AS customer, name, description, quantity, price
         FROM cart crt

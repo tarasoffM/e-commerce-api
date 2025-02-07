@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { getStoreItems, login, verifyAuth, logout, register, addToCart, getCart } from './services/api';
@@ -86,9 +86,12 @@ function App() {
                     {error && <div className="error">{error}</div>}
                     <Routes>
                         <Route exact path="/" element={<Home items={storeItems} />} />
-
-
-                        <Route path="/product/:id" element={<Product addItemToCart={addToCart} />} />
+                        <Route path="/product/:id" element={<Product 
+                            addItemToCart={addToCart} 
+                            setCart={setCart} 
+                            getCart={getCart} 
+                            setCartItemTotal={setCartItemTotal}
+                            />} />
                         <Route path="/cart" element={<Cart cart={cart}/>} />
                     </Routes>
                 </section>

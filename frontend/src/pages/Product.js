@@ -4,15 +4,24 @@ import { useEffect, useState } from 'react';
 import { getProductById } from '../services/api';
 import './Product.css';
 
-const Product = ({ addItemToCart }) => {
+const Product = ({ addItemToCart, getCart, setCart, setCartItemTotal }) => {
     const [product, setProduct] = useState({});
     const { id } = useParams();
     const navigate = useNavigate();
 
     const handleAddToCart = async (event) => {
-        event.preventDefault();
-        const response = await addItemToCart(product.id, 1);
-        alert(response.message);
+        try {
+            event.preventDefault();
+            const response = await addItemToCart(product.id, 1);
+            if (response) {
+                const newCart = await getCart();
+                setCart(newCart);
+                setCartItemTotal(newCart.length);
+                
+            }
+        } catch (error) {
+            console.error('Error adding item to cart:', error);
+        }
     };
 
 

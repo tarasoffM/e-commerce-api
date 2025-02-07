@@ -45,7 +45,7 @@ const addToCart = async (req, res) => {
 
     try {
         const results = await pool.query('INSERT INTO cart (product_id, quantity, customer_id) VALUES ($1, $2, $3) RETURNING id', [product_id, quantity, customer_id]);
-        res.status(201).send(`Product added to cart with ID: ${results.rows[0].id}`);
+        res.status(201).json( { id: results.rows[0].id, product_id, quantity, customer_id });
     } catch (error) {
         console.error('Error adding product to cart:', error);
         res.status(500).send('An error occurred while adding the product to the cart');

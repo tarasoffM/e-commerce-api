@@ -17,12 +17,11 @@ const Header = ({ isLoggedIn, setIsLoggedIn, logout, setIsModalOpen, setIsRegist
   return (
     <header className="headerContainer">
       <nav className="navbar">
-        <Link to="/" className="nav-link">Store</Link>
-        <Link to="/about" className="nav-link">About</Link>
+        <Link to="/" className="nav-link">Home</Link>
       </nav>
       <div className="header-actions">
         <Link to="/cart" className="cart-button">
-          Cart ({cartItemTotal})
+          Cart {cartItemTotal}
         </Link>
         <button onClick={handleLoginClick} className="login-button">
           {isLoggedIn ? 'Logout' : 'Login'}

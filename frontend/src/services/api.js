@@ -58,7 +58,6 @@ export const logout = async () => {
     });
     if (response.ok) {
         const data = await response.json();
-        alert(`Message: ${data.message}`);
     } else {
         throw new Error(`Logout failed with status: ${response.status}`);
     }
@@ -84,24 +83,24 @@ export const register = async (first_name, last_name, email, password) => {
 
 export const getStoreItems = async () => {
     try {
-    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/products`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-        },
-    });
-    
-    if (!response.ok) {
-        throw new Error(`Failed to fetch store items: ${response.status}`);
-    }
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/products`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Failed to fetch store items: ${response.status}`);
+        }
 
-    const data = await response.json();
-    return data;
-} catch (error) {
-    console.error('Error fetching store items:', error);
-    return [];
-}
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching store items:', error);
+        return [];
+    }
 };
 
 export const getProductById = async (id) => {

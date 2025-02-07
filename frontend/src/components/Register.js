@@ -22,7 +22,8 @@ const Register = ({ toggleRegister, register }) => {
             <form method="POST" onSubmit={handleSubmit}>
                 <label htmlFor="first_name">First Name:</label>
                 <input 
-                    type="text" 
+                    type="text"
+                    id="first_name" 
                     name="first_name"
                     value={first_name} 
                     onChange={(e) => setFirstName(e.target.value)} 
@@ -30,7 +31,8 @@ const Register = ({ toggleRegister, register }) => {
                 <br />
                 <label htmlFor="last_name">Last Name:</label>
                 <input 
-                    type="text" 
+                    type="text"
+                    id="last_name" 
                     name="last_name"
                     value={last_name} 
                     onChange={(e) => setLastName(e.target.value)}
@@ -39,6 +41,7 @@ const Register = ({ toggleRegister, register }) => {
                 <label htmlFor="email">Email:</label>
                 <input 
                     type="email" 
+                    id="email"
                     name="email"
                     value={email} 
                     onChange={(e) => setEmail(e.target.value)}
@@ -47,6 +50,7 @@ const Register = ({ toggleRegister, register }) => {
                 <label htmlFor="password">Password:</label>
                 <input 
                     type="password" 
+                    id="password"
                     name="password"
                     value={password} 
                     onChange={(e) => setPassword(e.target.value)}
@@ -55,6 +59,7 @@ const Register = ({ toggleRegister, register }) => {
                 <label htmlFor="password">Confirm Password:</label>
                 <input 
                     type="password" 
+                    id="confirmPassword"
                     name="confirmPassword"
                     value={confirmPassword} 
                     onChange={(e) => setConfirmPassword(e.target.value)}

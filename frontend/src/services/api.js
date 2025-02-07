@@ -17,6 +17,23 @@ export const login = async (email, password) => {
     }
 };
 
+export const logout = async () => {
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/logout`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        },
+        credentials: 'include',
+    });
+    if (response.ok) {
+        const data = await response.json();
+        alert(`Message: ${data.message}`);
+    } else {
+        throw new Error(`Logout failed with status: ${response.status}`);
+    }
+};
+
 // register user
 export const register = async (first_name, last_name, email, password) => {
     const response = await fetch(`${process.env.REACT_APP_BASE_URL}/register`, {

@@ -1,7 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Header = ({ isLoggedIn, onLoginClick, cartItemCount }) => {
+const Header = ({ isLoggedIn, logout, cartItemCount, setModal }) => {
+  
+  const handleLoginClick = () => {
+    if (isLoggedIn) {
+      logout();
+    } else {
+      setModal();
+    }
+  };
+  
   return (
     <header className="headerContainer">
       <nav className="navbar">
@@ -10,7 +19,7 @@ const Header = ({ isLoggedIn, onLoginClick, cartItemCount }) => {
         <Link to="/about" className="nav-link">About</Link>
       </nav>
       <div className="header-actions">
-        <button onClick={onLoginClick} className="login-button">
+        <button onClick={handleLoginClick} className="login-button">
           {isLoggedIn ? 'Logout' : 'Login'}
         </button>
         <Link to="/cart" className="cart-button">

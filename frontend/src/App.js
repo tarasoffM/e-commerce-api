@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { getStoreItems, login, register } from './services/api';
+import { getStoreItems, login, logout, register } from './services/api';
 
+import Header from './components/Header';
 import Home from './pages/Home';
 import Login from './components/Login';
 import Register from './components/Register';
 import Product from './pages/Product';
+import Cart from './pages/Cart';
 import Modal from './components/Modal';
 
 const URL = 'http://localhost:3000';
 
 function App() {
     const [storeItems, setStoreItems] = useState([]);
+    const [cart, setCart] = useState([]);
     const [error, setError] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isRegister, setIsRegister] = useState(false);
+    
 
     // fetch store items
     useEffect(() => {
@@ -36,15 +41,29 @@ function App() {
             <div className="App">
                 <header className="App-header">
                     <div className="headerContainer">
-                        <div className="login" onClick={() => setIsModalOpen(true)}>Login</div>
+                        <Header 
+                            setModal={() => {
+                                setIsModalOpen(true);
+                                setIsRegister(false);
+                            }}
+                            isLoggedIn={isLoggedIn} 
+                            logout={() => {
+                                logout();
+                                setIsLoggedIn(false);
+                            }}
+                        />
                     </div>
                 </header>
                 <section className="App-body">
                     {error && <div className="error">{error}</div>}
                     <Routes>
                         <Route exact path="/" element={<Home items={storeItems} />} />
-                        <Route path="/login" element={<Login login={login} />} />
+                        <Route path="/login" element={<Login login={(email, password) => {
+                            login(email, password);
+                            setIsLoggedIn(true);
+                        }} />} />
                         <Route path="/product/:id" element={<Product />} />
+                        <Route path="/cart" element={<Cart />} />
                     </Routes>
                 </section>
                 <footer>
@@ -54,7 +73,7 @@ function App() {
                     {isRegister ? (
                         <Register register={register} toggleRegister={() => setIsRegister(false)} />    
                     ) : (
-                        <Login login={login} toggleRegister={() => setIsRegister(true)} />
+                        <Login login={login} setIsLoggedIn={() => setIsLoggedIn(true)}toggleRegister={() => setIsRegister(true)} />
                     )}
                 </Modal>
                 

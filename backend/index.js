@@ -85,9 +85,9 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local'), (req, 
 app.get('/logout', checkAuthenticated, (req, res) => {
     req.logOut((err) => {
         if (err) {
-            return res.redirect('/profile');
+            return res.status(500).send({ message: `Logout failed ${err}` });
         }
-        res.redirect('/login');
+        res.status(200).send({ message: 'Logout successful' });
     });    
 });
 

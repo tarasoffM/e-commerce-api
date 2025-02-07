@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Login = ({ login, toggleRegister }) => {
+const Login = ({ login, toggleRegister, setIsLoggedIn }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -9,6 +9,7 @@ const Login = ({ login, toggleRegister }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         login(email, password);
+        setIsLoggedIn();
         navigate('/');
     };
 
@@ -19,6 +20,7 @@ const Login = ({ login, toggleRegister }) => {
                 <label htmlFor="email">Username:</label>
                 <input
                     type="email"
+                    id="email"
                     name="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -28,6 +30,7 @@ const Login = ({ login, toggleRegister }) => {
                 <label htmlFor="password">Password:</label>
                 <input
                     type="password"
+                    id="password"
                     name="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}

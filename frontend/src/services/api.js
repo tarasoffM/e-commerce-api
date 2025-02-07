@@ -23,6 +23,30 @@ export const login = async (email, password) => {
     }
 };
 
+export const verifyAuth = async () => {
+    try {
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/verify`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+            credentials: 'include',
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            return { success: true, data };
+        } else {
+            const errorData = await response.json();
+            return { success: false, message: errorData.message || 'Verification failed' };
+        }
+
+    } catch (error) {
+        console.error('Error verifying auth:', error);
+    }
+};
+
 export const logout = async () => {
     const response = await fetch(`${process.env.REACT_APP_BASE_URL}/logout`, {
         method: 'GET',
@@ -102,3 +126,49 @@ export const getProductById = async (id) => {
     }
 };
 
+export const addToCart = async (product_id, quantity) => {
+    try {
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/cart`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+            body: JSON.stringify({ product_id, quantity }),
+            credentials: 'include',
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to add item to cart: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error adding item to cart:', error);
+        return {};
+    }
+};
+
+export const getCart = async () => {
+    try {
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/cart`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+            credentials: 'include',
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch cart: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching cart:', error);
+        return [];
+    }
+};

@@ -1,0 +1,31 @@
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+}
+
+.navbar a {
+  margin-right: 10px;
+  color: #949ba1;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  margin-right: 5rem;
+}
+
+.header-actions a {
+  margin-right: 3rem;
+  color: #c7ccd1;
+  text-decoration: none;
+}

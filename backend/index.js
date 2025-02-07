@@ -82,6 +82,14 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local'), (req, 
     return res.status(200).send({ message: 'Login successful' });
 });
 
+app.get('/verify', (req, res) => {
+    if (req.isAuthenticated()) {
+        console.log(req.user);
+        return res.status(200).send( req.user);
+    }
+    return res.status(401).send({ message: 'Not authenticated' });
+});
+
 app.get('/logout', checkAuthenticated, (req, res) => {
     req.logOut((err) => {
         if (err) {
@@ -102,7 +110,7 @@ app.get('/products', (req, res) => {db.getProducts(req, res);});
 app.get('/products/:id', (req, res) => {db.getProductById(req, res);});
 
 // routes for cart endpoints
-app.get('/cart/:id', (req, res) => {db.getCartById(req, res);});
+app.get('/cart/', (req, res) => {db.getCart(req, res);});
 app.post('/cart', (req, res) => {db.addToCart(req, res);});
 app.delete('/cart/:id', (req, res) => {db.deleteFromCart(req, res);});
 

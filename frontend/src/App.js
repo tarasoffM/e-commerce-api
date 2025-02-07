@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { getStoreItems, login, logout, register } from './services/api';
+import { getStoreItems, login, verifyAuth, logout, register, addToCart, getCart } from './services/api';
 
 import Header from './components/Header';
 import Home from './pages/Home';
@@ -16,6 +16,7 @@ const URL = 'http://localhost:3000';
 function App() {
     const [storeItems, setStoreItems] = useState([]);
     const [cart, setCart] = useState([]);
+    const [cartItemTotal, setCartItemTotal] = useState(0);
     const [error, setError] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,6 +25,7 @@ function App() {
     const stateProps = {
         storeItems,
         cart,
+        cartItemTotal,
         error,
         isLoggedIn,
         setIsLoggedIn,
@@ -48,18 +50,32 @@ function App() {
         fetchItems();
     }, []);
 
+    useEffect(() => {
+        const checkAuthAndFetchCart = async () => {
+            try {
+                const authResult = await verifyAuth();
+                setIsLoggedIn(authResult.success);
+
+                if (authResult.success) {
+                    const cartItems = await getCart();
+                    setCart(cartItems);
+                    setCartItemTotal(cartItems.length);
+                }
+
+            } catch (error) {
+                setError(error.message);
+            }
+        };
+    
+        checkAuthAndFetchCart();
+    }, []);
+
     return (
         <Router>
             <div className="App">
                 <header className="App-header">
                     <div className="headerContainer">
-                        <Header 
-                            setModal={() => {
-                                setIsModalOpen(true);
-                                setIsRegister(false);
-                            }}
-                            {...stateProps}
-                        />
+                        <Header logout={logout} {...stateProps} />
                     </div>
                 </header>
                 <section className="App-body">
@@ -70,8 +86,8 @@ function App() {
                             login(email, password);
                             setIsLoggedIn(true);
                         }} />} />
-                        <Route path="/product/:id" element={<Product />} />
-                        <Route path="/cart" element={<Cart />} />
+                        <Route path="/product/:id" element={<Product addItemToCart={addToCart} />} />
+                        <Route path="/cart" element={<Cart cart={cart}/>} />
                     </Routes>
                 </section>
                 <footer>

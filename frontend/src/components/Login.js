@@ -1,16 +1,26 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Login = ({ login, toggleRegister, setIsLoggedIn }) => {
+const Login = ({ login, toggleRegister, setIsLoggedIn, setIsModalOpen }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        login(email, password);
-        setIsLoggedIn();
-        navigate('/');
+    const handleSubmit = async (event) => {
+        try {
+            event.preventDefault();
+            const result = await login(email, password);
+            setIsLoggedIn(result.success);
+            alert(result.success); // Display the success status
+            if (result.success) {
+                setIsModalOpen(false);
+                //navigate('/profile'); // Redirect to profile page on successful login
+            } else {
+                alert(result.message); // Display the error message if login failed
+            }
+        } catch (error) {
+            alert(error.message);
+        }
     };
 
     return (

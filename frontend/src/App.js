@@ -20,6 +20,18 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isRegister, setIsRegister] = useState(false);
+
+    const stateProps = {
+        storeItems,
+        cart,
+        error,
+        isLoggedIn,
+        setIsLoggedIn,
+        isModalOpen,
+        setIsModalOpen,
+        isRegister,
+        setIsRegister,
+    };
     
 
     // fetch store items
@@ -46,11 +58,7 @@ function App() {
                                 setIsModalOpen(true);
                                 setIsRegister(false);
                             }}
-                            isLoggedIn={isLoggedIn} 
-                            logout={() => {
-                                logout();
-                                setIsLoggedIn(false);
-                            }}
+                            {...stateProps}
                         />
                     </div>
                 </header>
@@ -73,7 +81,7 @@ function App() {
                     {isRegister ? (
                         <Register register={register} toggleRegister={() => setIsRegister(false)} />    
                     ) : (
-                        <Login login={login} setIsLoggedIn={() => setIsLoggedIn(true)}toggleRegister={() => setIsRegister(true)} />
+                        <Login login={login} {...stateProps} />
                     )}
                 </Modal>
                 

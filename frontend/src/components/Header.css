@@ -1,31 +1,70 @@
-
 .headerContainer {
   display: flex;
-  justify-content: space-between;
+
   align-items: center;
-  padding: 10px 20px;
 }
 
 .navbar {
+  width: 100%;
   display: flex;
-  align-items: center;
+  justify-content: space-between;
 }
 
 .navbar a {
   margin-right: 10px;
-  color: #949ba1;
+  color: #2e3a44;
   text-decoration: none;
   font-weight: 800;
 }
 
 .header-actions {
   display: flex;
+  flex-direction: column;
+  align-self: flex-end;
   align-items: center;
-  margin-right: 5rem;
+  margin-right: 2rem;
 }
 
 .header-actions a {
   margin-right: 3rem;
   color: #c7ccd1;
   text-decoration: none;
+}
+
+.actions-row {
+  display: flex;
+  gap: 1rem; /* Adjust the gap between the cart and login/logout button */
+}
+
+.user-info {
+  margin-bottom: 1rem; /* Adjust the space between the username and the actions row */
+  align-self: flex-end;
+  color: var(--secondary);
+  font-weight: 600;
+}
+
+.cart-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cart-icon {
+  height: 2.5rem;
+  width: 2.5rem;
+  opacity: 0.7;
+}
+
+.cart-number {
+  align-self: flex-end;
+  color: var(--secondary);
+}
+
+.login-button {
+  white-space: nowrap;
+  border: none;
+  padding: 0.5rem;
+  margin: auto 0;
+  border-radius: 999px;
+  cursor: pointer;
 }

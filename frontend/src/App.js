@@ -1,4 +1,4 @@
-import React, { useState, useEffect, use } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { getStoreItems, login, verifyAuth, logout, register, addToCart, getCart } from './services/api';
@@ -21,6 +21,7 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isRegister, setIsRegister] = useState(false);
+    const [userName, setUserName] = useState('');
 
     const stateProps = {
         storeItems,
@@ -33,6 +34,8 @@ function App() {
         setIsModalOpen,
         isRegister,
         setIsRegister,
+        userName,
+        setUserName,
     };
     
 
@@ -60,6 +63,7 @@ function App() {
                     const result = await getCart();
                     setCart(result);
                     setCartItemTotal(result.length);
+                    setUserName(`${authResult.data.first_name} ${authResult.data.last_name}`);
                 } else {
                     setCart([]);
                     setCartItemTotal(0);

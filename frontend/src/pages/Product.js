@@ -39,7 +39,7 @@ const Product = ({ addItemToCart, getCart, setCart, setCartItemTotal }) => {
 
     return (
         <div className="product">
-            <img src={`${process.env.REACT_APP_BASE_URL}${product.image}`} alt={product.name} />
+            <img src={`${process.env.REACT_APP_BASE_URL}${product.image}`} alt={product.name} className="product-img" />
             <hr />
             <div className="product-content">
             <h1>{product.name}</h1>

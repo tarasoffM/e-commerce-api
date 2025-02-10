@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getProductById } from '../services/api';
+import { apiGetProductById } from '../services/api';
 import './Product.css';
 
 const Product = ({ addItemToCart, getCart, setCart, setCartItemTotal }) => {
@@ -28,7 +28,7 @@ const Product = ({ addItemToCart, getCart, setCart, setCartItemTotal }) => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const product = await getProductById(id);
+                const product = await apiGetProductById(id);
                 setProduct(product[0]);
             } catch (error) {
                 console.error('Error fetching product:', error);

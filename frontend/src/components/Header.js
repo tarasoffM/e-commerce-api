@@ -2,14 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 
-const Header = ({ isLoggedIn, setIsLoggedIn, logout, setIsModalOpen, setIsRegister, cartItemTotal, userName, setUserName }) => {
+const Header = ({ isLoggedIn, logout, setIsModalOpen, setIsRegister, cartItemTotal, userName }) => {
   
-  const handleLoginClick = () => {
+  const handleLoginClick = (event) => {
+    event.preventDefault();
     if (isLoggedIn) {
+      // if user is logged in, log them out
       logout();
-      setIsLoggedIn(false);
-      setUserName('');
     } else {
+      // if user is not logged in, open the modal
       setIsModalOpen(true);
       setIsRegister(false);
     }

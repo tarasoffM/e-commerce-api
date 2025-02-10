@@ -1,30 +1,24 @@
 import React, { useState } from 'react';
+import './Login.css';
 
-const Login = ({ login, toggleRegister, setIsLoggedIn, setIsModalOpen, setCartItemTotal, cartItems }) => {
+const Login = ({ login }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = async (event) => {
+        event.preventDefault();
         try {
-            event.preventDefault();
-            const result = await login(email, password);
-            setIsLoggedIn(result.success);
-            if (result.success) {
-                setIsModalOpen(false);
-                
-            } else {
-                alert(result.message); // Display the error message if login failed
-            }
+            await login(email, password);
         } catch (error) {
-            alert(error.message);
+            console.error('Error logging in:', error);
         }
     };
 
     return (
-        <div>
-            <h1>Login Page</h1>
+        <div className="login-container">
+            <h1>Sign In</h1>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="email">Username:</label>
+                <label htmlFor="email">Email Address</label>
                 <input
                     type="email"
                     id="email"
@@ -34,7 +28,7 @@ const Login = ({ login, toggleRegister, setIsLoggedIn, setIsModalOpen, setCartIt
                     required
                 />
                 <br />
-                <label htmlFor="password">Password:</label>
+                <label htmlFor="password">Password</label>
                 <input
                     type="password"
                     id="password"
@@ -44,8 +38,10 @@ const Login = ({ login, toggleRegister, setIsLoggedIn, setIsModalOpen, setCartIt
                     required
                 />
                 <br />
-                <button type="submit">Login</button>
-                <button type="button" onClick={toggleRegister}>Register</button>
+             
+                    <button type="submit" className="submit-button">Login</button>
+                    <button type="button" onClick="" className="register-button">Register</button>
+                
             </form>
         </div>
     );

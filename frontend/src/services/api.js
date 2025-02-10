@@ -1,5 +1,5 @@
 
-export const login = async (email, password) => {
+export const apiLogin = async (email, password) => {
     try {
         const response = await fetch(`${process.env.REACT_APP_BASE_URL}/login`, {
             method: 'POST',
@@ -23,7 +23,7 @@ export const login = async (email, password) => {
     }
 };
 
-export const verifyAuth = async () => {
+export const apiVerifyAuth = async () => {
     try {
         const response = await fetch(`${process.env.REACT_APP_BASE_URL}/verify`, {
             method: 'GET',
@@ -47,7 +47,7 @@ export const verifyAuth = async () => {
     }
 };
 
-export const logout = async () => {
+export const apiLogout = async () => {
     const response = await fetch(`${process.env.REACT_APP_BASE_URL}/logout`, {
         method: 'GET',
         headers: {
@@ -58,13 +58,14 @@ export const logout = async () => {
     });
     if (response.ok) {
         const data = await response.json();
+        return { success: true, message: data.message };
     } else {
         throw new Error(`Logout failed with status: ${response.status}`);
     }
 };
 
 // register user
-export const register = async (first_name, last_name, email, password) => {
+export const apiRegister = async (first_name, last_name, email, password) => {
     const response = await fetch(`${process.env.REACT_APP_BASE_URL}/register`, {
         method: 'POST',
         headers: {
@@ -81,7 +82,7 @@ export const register = async (first_name, last_name, email, password) => {
     }
 };
 
-export const getStoreItems = async () => {
+export const apiGetStoreItems = async () => {
     try {
         const response = await fetch(`${process.env.REACT_APP_BASE_URL}/products`, {
             method: 'GET',
@@ -103,7 +104,7 @@ export const getStoreItems = async () => {
     }
 };
 
-export const getProductById = async (id) => {
+export const apiGetProductById = async (id) => {
     try {
         const response = await fetch(`${process.env.REACT_APP_BASE_URL}/products/${id}`, {
             method: 'GET',
@@ -125,7 +126,7 @@ export const getProductById = async (id) => {
     }
 };
 
-export const addToCart = async (product_id, quantity) => {
+export const apiAddToCart = async (product_id, quantity) => {
     try {
         const response = await fetch(`${process.env.REACT_APP_BASE_URL}/cart`, {
             method: 'POST',
@@ -149,7 +150,7 @@ export const addToCart = async (product_id, quantity) => {
     }
 };
 
-export const getCart = async () => {
+export const apiGetCart = async () => {
     try {
         const response = await fetch(`${process.env.REACT_APP_BASE_URL}/cart`, {
             method: 'GET',

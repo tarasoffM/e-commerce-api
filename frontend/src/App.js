@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { getStoreItems, login, verifyAuth, logout, register, addToCart, getCart } from './services/api';
+import { apiGetStoreItems, apiLogin, apiVerifyAuth, apiLogout, apiRegister, apiAddToCart, apiGetCart } from './services/api';
 
 import Header from './components/Header';
 import Home from './pages/Home';
@@ -38,12 +38,42 @@ function App() {
         setUserName,
     };
     
+    const login = async (email, password) => {
+        try {
+            const response = await apiLogin(email, password);
+            if (response.success) {
+                //login success
+                setIsLoggedIn(true);
+                setIsModalOpen(false);
+                setUserName(`${response.data.first_name} ${response.data.last_name}`);
+            } else {
+                //login failed
+                throw new Error(response.message);
+            }
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    };
+
+    const logout = async () => {
+        try {
+            const response = await apiLogout();
+            if (response.success) {
+                setIsLoggedIn(false);
+                setUserName('');
+            } else {            
+                throw new Error(response.message);
+            }
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    };
 
     // fetch store items
     useEffect(() => {
         const fetchItems = async () => {
             try {
-                const items = await getStoreItems();
+                const items = await apiGetStoreItems();
                 setStoreItems(items);
             } catch (error) {
                 setError(error.message);
@@ -56,11 +86,11 @@ function App() {
     useEffect(() => {
         const checkAuthAndFetchCart = async () => {
             try {
-                const authResult = await verifyAuth();
+                const authResult = await apiVerifyAuth();
                 setIsLoggedIn(authResult.success);
 
                 if (authResult.success) {
-                    const result = await getCart();
+                    const result = await apiGetCart();
                     setCart(result);
                     setCartItemTotal(result.length);
                     setUserName(`${authResult.data.first_name} ${authResult.data.last_name}`);
@@ -91,9 +121,9 @@ function App() {
                     <Routes>
                         <Route exact path="/" element={<Home items={storeItems} />} />
                         <Route path="/product/:id" element={<Product 
-                            addItemToCart={addToCart} 
+                            addItemToCart={apiAddToCart} 
                             setCart={setCart} 
-                            getCart={getCart} 
+                            getCart={apiGetCart} 
                             setCartItemTotal={setCartItemTotal}
                             />} />
                         <Route path="/cart" element={<Cart cart={cart}/>} />
@@ -102,11 +132,11 @@ function App() {
                 <footer>
                     {/* Add your footer content here */}
                 </footer>
-                <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen()}>
+                <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
                     {isRegister ? (
-                        <Register register={register} toggleRegister={() => setIsRegister(false)} />    
+                        <Register register={apiRegister} />    
                     ) : (
-                        <Login login={login} {...stateProps} />
+                        <Login login={login} />
                     )}
                 </Modal>
                 

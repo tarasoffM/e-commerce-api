@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './Login.css';
 
-const Login = ({ login }) => {
+
+const Login = ({ login, toggleRegister }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -15,7 +15,7 @@ const Login = ({ login }) => {
     };
 
     return (
-        <div className="login-container">
+        <div className="auth-container">
             <h1>Sign In</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="email">Email Address</label>
@@ -40,7 +40,7 @@ const Login = ({ login }) => {
                 <br />
              
                     <button type="submit" className="submit-button">Login</button>
-                    <button type="button" onClick="" className="register-button">Register</button>
+                    <button type="button" onClick={toggleRegister} className="toggle-button">Register new account</button>
                 
             </form>
         </div>

@@ -134,9 +134,9 @@ function App() {
                 </footer>
                 <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
                     {isRegister ? (
-                        <Register register={apiRegister} />    
+                        <Register register={apiRegister} toggleRegister={() => setIsRegister(false)}/>    
                     ) : (
-                        <Login login={login} />
+                        <Login login={login} toggleRegister={() => setIsRegister(true)}/>
                     )}
                 </Modal>
                 

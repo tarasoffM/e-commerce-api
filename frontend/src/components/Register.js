@@ -17,10 +17,10 @@ const Register = ({ toggleRegister, register }) => {
     };        
 
     return (
-        <div>
-            <h1>Register Page</h1>
+        <div className="auth-container">
+            <h1>Register</h1>
             <form method="POST" onSubmit={handleSubmit}>
-                <label htmlFor="first_name">First Name:</label>
+                <label htmlFor="first_name">First Name</label>
                 <input 
                     type="text"
                     id="first_name" 
@@ -29,7 +29,7 @@ const Register = ({ toggleRegister, register }) => {
                     onChange={(e) => setFirstName(e.target.value)} 
                     required />
                 <br />
-                <label htmlFor="last_name">Last Name:</label>
+                <label htmlFor="last_name">Last Name</label>
                 <input 
                     type="text"
                     id="last_name" 
@@ -38,7 +38,7 @@ const Register = ({ toggleRegister, register }) => {
                     onChange={(e) => setLastName(e.target.value)}
                     required />
                 <br />
-                <label htmlFor="email">Email:</label>
+                <label htmlFor="email">Email Address</label>
                 <input 
                     type="email" 
                     id="email"
@@ -47,7 +47,7 @@ const Register = ({ toggleRegister, register }) => {
                     onChange={(e) => setEmail(e.target.value)}
                     required />
                 <br />
-                <label htmlFor="password">Password:</label>
+                <label htmlFor="password">Password</label>
                 <input 
                     type="password" 
                     id="password"
@@ -56,7 +56,7 @@ const Register = ({ toggleRegister, register }) => {
                     onChange={(e) => setPassword(e.target.value)}
                     required />
                 <br />
-                <label htmlFor="password">Confirm Password:</label>
+                <label htmlFor="password">Confirm Password</label>
                 <input 
                     type="password" 
                     id="confirmPassword"
@@ -65,8 +65,8 @@ const Register = ({ toggleRegister, register }) => {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required />
                 <br />
-                <button type="submit">Register</button>
-                <button type="button" onClick={toggleRegister}>Login</button>
+                <button type="submit" className="submit-button">Register</button>
+                <button type="button" onClick={toggleRegister} className="toggle-button">Sign in with existing account</button>
             </form>
         </div>
     );

@@ -7,7 +7,7 @@
 .card {
     display: flex;    
     flex-direction: column;
-    background-color: var(--light-alt);
+    background-color: var(--light);
     border-radius: 0.5rem;
     padding: 1rem;
     margin: 1rem;
@@ -15,6 +15,7 @@
     max-width: 20rem;
     min-width: 10rem;
     cursor: pointer;
+    box-shadow: 0 5px 10px var(--shadows);
     
     
 }

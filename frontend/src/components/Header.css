@@ -33,11 +33,12 @@
 
 .actions-row {
   display: flex;
+  align-items: baseline;
   gap: 1rem; /* Adjust the gap between the cart and login/logout button */
 }
 
 .user-info {
-  margin-bottom: 1rem; /* Adjust the space between the username and the actions row */
+  margin-bottom: 2rem; /* Adjust the space between the username and the actions row */
   align-self: flex-end;
   color: var(--secondary);
   font-weight: 600;
@@ -58,13 +59,21 @@
 .cart-number {
   align-self: flex-end;
   color: var(--secondary);
+  font-weight: 800;
 }
 
 .login-button {
   white-space: nowrap;
-  border: none;
+  background-color: transparent;
   padding: 0.5rem;
-  margin: auto 0;
   border-radius: 999px;
   cursor: pointer;
+  border: transparent;
+  font-weight: 800;
+  color: #2e3a44;
+  transition: box-shadow 0.3s ease;
+}
+
+.login-button:hover {
+  box-shadow: 0 0 5px var(--light-alt);
 }

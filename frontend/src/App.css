@@ -2,7 +2,7 @@
     --primary: #8b9ca0;
     --secondary: #2e3a44;
     --light: #f3ecec;
-    --light-alt: #ece5ea;
+    --light-alt: #e7e0e6;
     --dark: #000000;
     --dark-alt: #1e1e2f;
     --shadows: rgb(177, 177, 177);
@@ -26,7 +26,6 @@
   .App {
     display: flex;
     flex-direction: column;
-    
   }
   
   header {
@@ -40,21 +39,22 @@
     z-index: 1000;
   }
   
+.App-header {
+  box-shadow: 0 0px 10px 1px var(--secondary);
+}
+
   .App-body {
     position: fixed;
-    top: 8rem; /* Adjust based on header height */
-    bottom: 4rem; /* Adjust based on footer height */
+    top: 3rem; /* Adjust based on header height */
+    bottom: 0rem; /* Adjust based on footer height */
     left: 0;
     right: 0;
     overflow-y: auto;
     padding: 3rem;
     width: 80%;
     max-width: 1200px;
-    margin: 5rem auto;
-
-    
-    
-    background-color: var(--light);
+    margin: 5rem auto; 
+    background-color: var(--light-alt);
   }
   
   footer {
@@ -62,10 +62,11 @@
     color: var(--light);
     padding: 1rem;
     position: fixed;
-    height: 4rem;
+    height: 5rem;
     bottom: 0;
     width: 100%;
     z-index: 1000;
+    box-shadow: 0 0px 10px 1px var(--secondary);
   }
   
   .headerContainer, .footerContainer {

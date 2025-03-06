@@ -17,7 +17,7 @@ Built by Matt Tarasoff for scalability and ease of use.
   - RESTful API with Express
   - User authentication (signup/login) with Passport.js and bcrypt
   - Product/order management via PostgreSQL
-- [Add more, e.g., "Cart persistence"]
+- **More To Come**
 
 ## Project Structure
 - **`frontend/`**: React-based client
@@ -62,7 +62,7 @@ Built by Matt Tarasoff for scalability and ease of use.
 3. **Set up PostgreSQL:**
  - Create a database named `e_commerce`:
   ```bash createdb e_commerce -U e_commerce_user ```
- - [Add schema instructions if you have them, e.g., "Run `schema.sql` to initialize tables."]
+ - Will provide schema instructions in the future
 
 4. **Environment variables:**
  - Create `.env` in `backend/` with the following:

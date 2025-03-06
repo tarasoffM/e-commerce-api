@@ -14,9 +14,9 @@ Built by Matt Tarasoff for scalability and ease of use.
   - Client-side routing via `react-router-dom`
   - Responsive design
 - **Backend (`backend/`)**:
- - RESTful API with Express
- - User authentication (signup/login) with Passport.js and bcrypt
- - Product/order management via PostgreSQL
+  - RESTful API with Express
+  - User authentication (signup/login) with Passport.js and bcrypt
+  - Product/order management via PostgreSQL
 - [Add more, e.g., "Cart persistence"]
 
 ## Project Structure
@@ -66,7 +66,14 @@ Built by Matt Tarasoff for scalability and ease of use.
 
 4. **Environment variables:**
  - Create `.env` in `backend/` with the following:
-  ``` PORT=3001 DB_HOST=localhost DB_PORT=5432 DB_USER=e_commerce_user DB_PASSWORD=[your-password] DB_NAME=e_commerce SESSION_SECRET=secret NODE_ENV=development ```
+  ``` PORT=3001 ```
+  ``` DB_HOST=localhost ```
+  ``` DB_PORT=5432 ``` 
+  ``` DB_USER=e_commerce_user ```
+  ``` DB_PASSWORD=[your-password] ```
+  ``` DB_NAME=e_commerce ```
+  ``` SESSION_SECRET=secret ```
+  ``` NODE_ENV=development ```
  - Notes:
   - Replace `[your-password]` with a secure password (or leave blank if not required locally).
   - Update `SESSION_SECRET` to a unique, secure string in production (e.g., `openssl rand -hex 32`).

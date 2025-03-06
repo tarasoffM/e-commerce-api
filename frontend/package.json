@@ -1,7 +1,10 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
+  "name": "e-commerce-frontend",
+  "version": "1.0.0",
   "private": true,
+  "description": "Frontend for a simple e-commerce web application built with React.",
+  "author": "Matt Tarasoff",
+  "license": "MIT",
   "dependencies": {
     "cra-template": "1.2.0",
     "dotenv": "^16.4.7",

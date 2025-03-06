@@ -1,16 +1,16 @@
 {
-  "name": "e-commerce-api",
+  "name": "e-commerce-backend",
   "version": "1.0.0",
   "main": "index.js",
+  "description": "Backend API for a simple e-commerce web application built with Node.js, Express, and PostgreSQL.",
+  "author": "Matt Tarasoff",
+  "license": "MIT",
+  "keywords": ["e-commerce", "nodejs", "express", "api"],
   "scripts": {
     "start": "node index.js",
-    "devStart": "nodemon index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "Matt Tarasoff",
-  "license": "ISC",
-  "description": "This is a simple e-commerce API built with Node.js, Express, and PostgreSQL.",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",

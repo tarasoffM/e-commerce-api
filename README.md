@@ -29,8 +29,6 @@ Built by Matt Tarasoff for scalability and ease of use.
 - **npm**: Included with Node.js
 - **PostgreSQL**: v12+ (for backend)
 
----
-
 ## Frontend Setup (`frontend/`)
 ### Dependencies
 - React 19, `react-router-dom`, `react-scripts`
@@ -49,8 +47,6 @@ Built by Matt Tarasoff for scalability and ease of use.
 4. **Run:**
  ```bash npm start ```
   Access at `http://localhost:3000`.
-
----
 
 ## Backend Setup (`backend/`)
 ### Dependencies
@@ -81,8 +77,6 @@ Built by Matt Tarasoff for scalability and ease of use.
  - Production: `npm start`
    API runs at `http://localhost:3001`.
 
----
-
 ## Usage
 1. Start the backend: `npm run dev` in `e-commerce/backend/`.
 2. Start the frontend: `npm start` in `e-commerce/frontend/`.
@@ -103,4 +97,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 ## LicenseLicensed under the [MIT License](LICENSE).
 
 ## Contact
-Reach out to Matt Tarasoff at [your-email@example.com] or file an issue on GitHub.
+Reach out to Matt Tarasoff at tarasoff.matt@gmail.com or file an issue on GitHub.

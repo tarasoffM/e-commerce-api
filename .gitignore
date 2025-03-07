@@ -24,3 +24,6 @@ node_modules
 /frontendnpm-debug.log*
 /frontendyarn-debug.log*
 /frontendyarn-error.log*
+
+# product image folder
+/backend/public/images

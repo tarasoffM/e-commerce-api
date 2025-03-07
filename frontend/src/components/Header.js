@@ -1,41 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 
+const URL = process.env.REACT_APP_BASE_URL;
+
 const Header = ({ isLoggedIn, logout, setIsModalOpen, setIsRegister, cartItemTotal, userName }) => {
-  
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+
   const handleLoginClick = (event) => {
     event.preventDefault();
     if (isLoggedIn) {
-      // if user is logged in, log them out
       logout();
     } else {
-      // if user is not logged in, open the modal
       setIsModalOpen(true);
       setIsRegister(false);
     }
   };
-  
-  return (
-    <header className="headerContainer">
-      <nav className="navbar">
-        <Link to="/" className="nav-link">Home</Link>
-      </nav>
 
-      <div className="header-actions">
-        <div className="user-info">
-          {userName}
-        </div>
-        <div className="actions-row">
-          <Link to="/cart" className="cart-button">
-          <div className="cart-button-container">
-             <img src="/images/cart.png" className="cart-icon" />
-             <div className="cart-number" >{cartItemTotal}</div>
-          </div>
-          </Link>
-          <button onClick={handleLoginClick} className="login-button">
-            {isLoggedIn ? 'Sign Out' : 'Sign In'}
+  return (
+    <header className="header sticky">
+      <div className="header-container">
+        {/* Logo */}
+        <Link to="/" className="logo">
+          {<img src={URL + '/public/images/Logo01.png'} alt="Matt's E-Shop" />}
+        </Link>
+
+        {/* Navigation */}
+        <nav className={`nav ${isMobileNavOpen ? 'open' : ''}`}>
+          <button className="hamburger" onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}>
+            ☰
           </button>
+          <ul className="nav-links">
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/shop">Shop</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
+          </ul>
+        </nav>
+
+        {/* Actions */}
+        <div className="header-actions">
+          <div className="action-icons">
+            <span className="search-icon">🔍</span>
+            <Link to="/cart" className="cart-icon">
+              <img src="/images/cart.png" alt="Cart" />
+              {cartItemTotal > 0 && <span className="cart-badge">{cartItemTotal}</span>}
+            </Link>
+          </div>
+          <div className="user-actions">
+            {isLoggedIn ? (
+              <>
+                <span className="user-name">Welcome, {userName}</span>
+                <button onClick={handleLoginClick} className="logout-btn">Logout</button>
+              </>
+            ) : (
+              <button onClick={handleLoginClick} className="login-btn">Sign In</button>
+            )}
+          </div>
         </div>
       </div>
     </header>

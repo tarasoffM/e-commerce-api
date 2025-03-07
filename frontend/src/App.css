@@ -28,33 +28,10 @@
     flex-direction: column;
   }
   
-  header {
-    background-color: var(--primary);
-    color: var(--light);
-    padding: 1rem;
-    position: fixed;
-    height: 8rem;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-  }
-  
-.App-header {
-  box-shadow: 0 0px 10px 1px var(--secondary);
-}
 
 
-  footer {
-    background-color: var(--primary);
-    color: var(--light);
-    padding: 1rem;
-    position: fixed;
-    height: 5rem;
-    bottom: 0;
-    width: 100%;
-    z-index: 1000;
-    box-shadow: 0 0px 10px 1px var(--secondary);
-  }
+
+
   
   .headerContainer, .footerContainer {
     max-width: 1200px;

@@ -55,24 +55,26 @@ function Home({ items, cart, cartItemTotal, isLoggedIn, setIsModalOpen }) {
 
   return (
     <div className="home">
-      <section className="hero">
-        <div className="hero-overlay"></div>
-        <div className="hero-slider">
-          {heroItems.length > 0 && heroItems.map((item, index) => (
-            <img
-              key={item.id}
-              src={URL + item.image} // Assumes items have an 'image' field
-              alt={item.name}
-              className={`hero-image ${index === heroIndex ? 'active' : ''}`}
-            />
-          ))}
-          <div className="hero-text">
-            <h1>Shop the Best Deals</h1>
-            <Link to="/shop" className="hero-btn">Browse All</Link>
-          </div>
+        <div className="hero-container">
+            <section className="hero">
+                <div className="hero-overlay"></div>
+                <div className="hero-slider">
+                {heroItems.length > 0 && heroItems.map((item, index) => (
+                    <img
+                    key={item.id}
+                    src={URL + item.image} // Assumes items have an 'image' field
+                    alt={item.name}
+                    className={`hero-image ${index === heroIndex ? 'active' : ''}`}
+                    />
+                ))}
+                <div className="hero-text">
+                    <h1>Shop the Best Deals</h1>
+                    <Link to="/shop" className="hero-btn">Browse All</Link>
+                </div>
+                </div>
+            </section>
         </div>
-      </section>
-
+        
       <section className="featured">
         <h2>Featured Products</h2>
         <div className="product-grid">

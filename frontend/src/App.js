@@ -11,7 +11,7 @@ import Product from './pages/Product';
 import Cart from './pages/Cart';
 import Modal from './components/Modal';
 
-const URL = 'http://localhost:3000';
+const URL = process.env.REACT_APP_API_URL;
 
 function App() {
     const [storeItems, setStoreItems] = useState([]);
@@ -108,6 +108,9 @@ function App() {
         checkAuthAndFetchCart();
     }, [isLoggedIn]);
 
+    // set up routes
+    const HomePage = () => <Home items={storeItems} {...stateProps} />;
+
     return (
         <Router>
             <div className="App">
@@ -119,7 +122,7 @@ function App() {
                 <section className="App-body">
                     {error && <div className="error">{error}</div>}
                     <Routes>
-                        <Route exact path="/" element={<Home items={storeItems} />} />
+                        <Route exact path="/" element={<HomePage />} />
                         <Route path="/product/:id" element={<Product 
                             addItemToCart={apiAddToCart} 
                             setCart={setCart} 

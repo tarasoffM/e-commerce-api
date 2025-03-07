@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 import Card from '../components/Card';
 import { useNavigate } from 'react-router-dom';
@@ -27,5 +28,85 @@ const Home = ({ items, handleClick }) => {
         </div>
     );
     };
+*/
+
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { apiAddToCart, apiGetCart } from '../services/api';
+import './Home.css';
+
+const URL = process.env.REACT_APP_BASE_URL;
+
+function Home({ items, cart, cartItemTotal, isLoggedIn, setIsModalOpen }) {
+  const [heroIndex, setHeroIndex] = useState(0);
+
+  // Rotate hero image every 5s (using first 3 items as a demo)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % 3);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Filter for new arrivals (assuming items have an isNew flag; adjust as needed)
+  const newArrivals = items.filter(item => item.isNew).slice(0, 5);
+  const featuredItems = items.slice(0, 4); // Top 4 for featured grid
+
+  return (
+    <div className="home">
+      <section className="hero">
+        {items.length > 0 && (
+          <>
+            <img src={`${URL}${items[heroIndex].image}`} alt={items[heroIndex].name} />
+            <div className="hero-text">
+              <h1>Shop the Best Deals</h1>
+              <Link to="/shop" className="hero-btn">Browse All</Link>
+            </div>
+          </>
+        )}
+      </section>
+
+      <section className="featured">
+        <h2>Featured Products</h2>
+        <div className="product-grid">
+          {featuredItems.map(item => (
+            <div key={item.id} className="product-card">
+              <Link to={`/product/${item.id}`}>
+                <img src={URL + item.image} alt={item.name} />
+                <p>{item.name}</p>
+                <p>{item.price}</p>
+              </Link>
+              <button onClick={() => apiAddToCart(item.id).then(() => apiGetCart())}>
+                Add to Cart
+              </button>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="new-arrivals">
+        <h2>New Arrivals</h2>
+        <div className="carousel">
+          {newArrivals.map(item => (
+            <div key={item.id} className="carousel-item">
+              <Link to={`/product/${item.id}`}>
+                <img src={URL + item.image} alt={item.name} />
+                <p>{item.name}</p>
+                <p>{item.price}</p>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="cta">
+        <h3>Join Our Community</h3>
+        <input type="email" placeholder="Enter your email" />
+        <button>Subscribe</button>
+      </section>
+    </div>
+  );
+}
+
 
 export default Home;

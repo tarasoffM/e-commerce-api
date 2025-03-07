@@ -43,20 +43,7 @@
   box-shadow: 0 0px 10px 1px var(--secondary);
 }
 
-  .App-body {
-    position: fixed;
-    top: 3rem; /* Adjust based on header height */
-    bottom: 0rem; /* Adjust based on footer height */
-    left: 0;
-    right: 0;
-    overflow-y: auto;
-    padding: 3rem;
-    width: 80%;
-    max-width: 1200px;
-    margin: 5rem auto; 
-    background-color: var(--light-alt);
-  }
-  
+
   footer {
     background-color: var(--primary);
     color: var(--light);

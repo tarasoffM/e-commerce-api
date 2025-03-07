@@ -26,7 +26,9 @@ function App() {
     const stateProps = {
         storeItems,
         cart,
+        setCart,
         cartItemTotal,
+        setCartItemTotal,
         error,
         isLoggedIn,
         setIsLoggedIn,

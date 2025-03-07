@@ -12,7 +12,7 @@ app.set('view-engine', 'ejs');
 
 // Enable CORS
 app.use(cors({ 
-    origin: 'http://localhost:3001', 
+    origin: 'http://localhost:3002', 
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true 
 }));

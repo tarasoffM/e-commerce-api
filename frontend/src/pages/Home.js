@@ -40,30 +40,37 @@ const URL = process.env.REACT_APP_BASE_URL;
 function Home({ items, cart, cartItemTotal, isLoggedIn, setIsModalOpen }) {
   const [heroIndex, setHeroIndex] = useState(0);
 
-  // Rotate hero image every 5s (using first 3 items as a demo)
+  // Rotate hero index every 5s, looping through 3 images
   useEffect(() => {
     const interval = setInterval(() => {
       setHeroIndex((prev) => (prev + 1) % 3);
-    }, 5000);
+    }, 5000); // 5-second interval
     return () => clearInterval(interval);
   }, []);
 
-  // Filter for new arrivals (assuming items have an isNew flag; adjust as needed)
-  const newArrivals = items.filter(item => item.isNew).slice(0, 5);
+  // Use first 3 items for hero (adjust if items have a 'heroImage' field)
+  const heroItems = items.slice(0, 3);
   const featuredItems = items.slice(0, 4); // Top 4 for featured grid
+  const newArrivals = items.filter(item => item.isNew).slice(0, 5); // Adjust filter as needed
 
   return (
     <div className="home">
       <section className="hero">
-        {items.length > 0 && (
-          <>
-            <img src={`${URL}${items[heroIndex].image}`} alt={items[heroIndex].name} />
-            <div className="hero-text">
-              <h1>Shop the Best Deals</h1>
-              <Link to="/shop" className="hero-btn">Browse All</Link>
-            </div>
-          </>
-        )}
+        <div className="hero-overlay"></div>
+        <div className="hero-slider">
+          {heroItems.length > 0 && heroItems.map((item, index) => (
+            <img
+              key={item.id}
+              src={URL + item.image} // Assumes items have an 'image' field
+              alt={item.name}
+              className={`hero-image ${index === heroIndex ? 'active' : ''}`}
+            />
+          ))}
+          <div className="hero-text">
+            <h1>Shop the Best Deals</h1>
+            <Link to="/shop" className="hero-btn">Browse All</Link>
+          </div>
+        </div>
       </section>
 
       <section className="featured">

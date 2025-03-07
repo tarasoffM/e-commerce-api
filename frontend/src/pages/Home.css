@@ -76,6 +76,9 @@
     gap: 20px;
   }
   
+  .product-card {
+    transition: transform 0.5s, box-shadow 0.5s;
+  }
   .product-card img {
     width: 100%;
     height: 200px;
@@ -84,7 +87,7 @@
   
   .product-card:hover {
     transform: scale(1.05);
-    border: 1px solid #26A69A;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.363);
   }
   
   .carousel {

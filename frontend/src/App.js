@@ -86,14 +86,14 @@ function App() {
     useEffect(() => {
         const checkAuthAndFetchCart = async () => {
             try {
-                const authResult = await apiVerifyAuth();
-                setIsLoggedIn(authResult.success);
+                const authResponse = await apiVerifyAuth();
+                setIsLoggedIn(authResponse.success);
 
-                if (authResult.success) {
-                    const result = await apiGetCart();
-                    setCart(result);
-                    setCartItemTotal(result.length);
-                    setUserName(`${authResult.data.first_name} ${authResult.data.last_name}`);
+                if (authResponse.success) {
+                    const response = await apiGetCart();
+                    setCart(response);
+                    setCartItemTotal(response.length);
+                    setUserName(`${authResponse.data.first_name} ${authResponse.data.last_name}`);
                 } else {
                     setCart([]);
                     setCartItemTotal(0);
